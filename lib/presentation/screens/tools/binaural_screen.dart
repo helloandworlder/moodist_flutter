@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../services/tone_generator_service.dart';
 import '../../providers/tools/binaural_provider.dart';
 
@@ -14,7 +15,7 @@ class BinauralScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Binaural Beats'),
+        title: Text('binaural.title'.tr()),
         actions: [
           IconButton(
             icon: const Icon(LucideIcons.info, size: 20),
@@ -108,31 +109,31 @@ class BinauralScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('About Binaural Beats'),
-        content: const SingleChildScrollView(
+        title: Text('binaural.title'.tr()),
+        content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Binaural beats are created when two slightly different frequencies are played in each ear. Your brain perceives a third frequency, which is the difference between the two.',
-                style: TextStyle(height: 1.5),
+                'binaural.subtitle'.tr(),
+                style: const TextStyle(height: 1.5),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
-                'Brainwave States:',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                '• ${'binaural.delta'.tr()}: ${'binaural.delta_desc'.tr()}',
               ),
-              SizedBox(height: 8),
-              Text('• Delta (0.5-4 Hz): Deep sleep'),
-              Text('• Theta (4-8 Hz): Meditation, creativity'),
-              Text('• Alpha (8-14 Hz): Relaxation'),
-              Text('• Beta (14-30 Hz): Focus, alertness'),
-              Text('• Gamma (30+ Hz): Peak performance'),
-              SizedBox(height: 16),
               Text(
-                '⚠️ Important: Use headphones for binaural beats to work properly. Each ear must receive a different frequency.',
-                style: TextStyle(fontStyle: FontStyle.italic),
+                '• ${'binaural.theta'.tr()}: ${'binaural.theta_desc'.tr()}',
+              ),
+              Text(
+                '• ${'binaural.alpha'.tr()}: ${'binaural.alpha_desc'.tr()}',
+              ),
+              Text(
+                '• ${'binaural.beta'.tr()}: ${'binaural.beta_desc'.tr()}',
+              ),
+              Text(
+                '• ${'binaural.gamma'.tr()}: ${'binaural.gamma_desc'.tr()}',
               ),
             ],
           ),
@@ -140,7 +141,7 @@ class BinauralScreen extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Got it'),
+            child: Text('common.ok'.tr()),
           ),
         ],
       ),

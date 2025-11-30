@@ -78,7 +78,7 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Notepad'),
+        title: Text('notepad.title'.tr()),
         actions: [
           // Word count
           Center(
@@ -90,7 +90,7 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                '$_wordCount words',
+                'notepad.words_count'.tr(args: ['$_wordCount']),
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
@@ -112,24 +112,24 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
               }
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'copy',
                 child: Row(
                   children: [
-                    Icon(LucideIcons.copy, size: 18),
-                    SizedBox(width: 12),
-                    Text('Copy All'),
+                    const Icon(LucideIcons.copy, size: 18),
+                    const SizedBox(width: 12),
+                    Text('notepad.copy'.tr()),
                   ],
                 ),
               ),
               const PopupMenuDivider(),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'clear',
                 child: Row(
                   children: [
-                    Icon(LucideIcons.trash2, size: 18, color: Colors.red),
-                    SizedBox(width: 12),
-                    Text('Clear', style: TextStyle(color: Colors.red)),
+                    const Icon(LucideIcons.trash2, size: 18, color: Colors.red),
+                    const SizedBox(width: 12),
+                    Text('notepad.clear'.tr(), style: const TextStyle(color: Colors.red)),
                   ],
                 ),
               ),
@@ -153,7 +153,7 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
                     height: 1.6,
                   ),
               decoration: InputDecoration(
-                hintText: 'Start writing...',
+                hintText: 'notepad.placeholder'.tr(),
                 hintStyle: TextStyle(
                   color: Colors.grey.shade500,
                 ),
@@ -191,7 +191,7 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    _hasUnsavedChanges ? 'Saving...' : 'Saved',
+                    _hasUnsavedChanges ? 'notepad.auto_saved'.tr() : 'notepad.auto_saved'.tr(),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: _hasUnsavedChanges
                               ? Colors.orange
@@ -201,7 +201,7 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
                   const Spacer(),
                   // Character count
                   Text(
-                    '${_controller.text.length} characters',
+                    'notepad.chars_count'.tr(args: ['${_controller.text.length}']),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Colors.grey,
                         ),
@@ -218,8 +218,8 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
   void _copyToClipboard() {
     if (_controller.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Nothing to copy'),
+        SnackBar(
+          content: Text('notepad.placeholder'.tr()),
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -228,12 +228,12 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
     Clipboard.setData(ClipboardData(text: _controller.text));
     HapticFeedback.lightImpact();
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
+      SnackBar(
         content: Row(
           children: [
-            Icon(LucideIcons.check, color: Colors.white, size: 20),
-            SizedBox(width: 12),
-            Text('Copied to clipboard'),
+            const Icon(LucideIcons.check, color: Colors.white, size: 20),
+            const SizedBox(width: 12),
+            Text('notepad.copied'.tr()),
           ],
         ),
         behavior: SnackBarBehavior.floating,
@@ -245,8 +245,8 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear Note?'),
-        content: const Text('This will delete all your note content.'),
+        title: Text('notepad.clear_confirm'.tr()),
+        content: Text('notepad.clear_confirm_desc'.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -262,7 +262,7 @@ class _NotepadScreenState extends ConsumerState<NotepadScreen> {
               HapticFeedback.mediumImpact();
             },
             style: FilledButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Clear'),
+            child: Text('notepad.clear'.tr()),
           ),
         ],
       ),

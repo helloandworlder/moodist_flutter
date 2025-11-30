@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../providers/tools/breathing_provider.dart';
 
 class BreathingScreen extends ConsumerWidget {
@@ -14,7 +15,7 @@ class BreathingScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Breathing Exercise'),
+        title: Text('breathing.title'.tr()),
       ),
       body: SafeArea(
         child: Column(
@@ -206,7 +207,7 @@ class _ExerciseSelector extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Exercise Type',
+            'breathing.cycles'.tr(),
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   color: Colors.grey,
                 ),
@@ -349,31 +350,28 @@ class _Controls extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Breathing Exercises'),
-        content: const SingleChildScrollView(
+        title: Text('breathing.title'.tr()),
+        content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               _ExerciseInfo(
-                title: 'Box Breathing',
+                title: 'breathing.box'.tr(),
                 pattern: '4-4-4-4',
-                description:
-                    'Inhale, hold, exhale, hold - each for 4 seconds. Used by Navy SEALs for stress management.',
+                description: 'breathing.box_desc'.tr(),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               _ExerciseInfo(
-                title: 'Resonant Breathing',
+                title: 'breathing.resonant'.tr(),
                 pattern: '5-5',
-                description:
-                    'Breathe at about 5 breaths per minute. Promotes heart rate variability and relaxation.',
+                description: 'breathing.resonant_desc'.tr(),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               _ExerciseInfo(
-                title: '4-7-8 Breathing',
+                title: 'breathing.relaxing'.tr(),
                 pattern: '4-7-8',
-                description:
-                    'Dr. Andrew Weil\'s technique. Inhale 4s, hold 7s, exhale 8s. Great for sleep and anxiety.',
+                description: 'breathing.relaxing_desc'.tr(),
               ),
             ],
           ),
@@ -381,7 +379,7 @@ class _Controls extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Got it'),
+            child: Text('common.ok'.tr()),
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../services/tone_generator_service.dart';
 import '../../providers/tools/isochronic_provider.dart';
 
@@ -14,7 +15,7 @@ class IsochronicScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Isochronic Tones'),
+        title: Text('isochronic.title'.tr()),
         actions: [
           IconButton(
             icon: const Icon(LucideIcons.info, size: 20),
@@ -108,43 +109,39 @@ class IsochronicScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('About Isochronic Tones'),
-        content: const SingleChildScrollView(
+        title: Text('isochronic.title'.tr()),
+        content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Isochronic tones are evenly spaced pulses of a single tone that turn on and off at a specific rate. Unlike binaural beats, they don\'t require headphones.',
-                style: TextStyle(height: 1.5),
+                'isochronic.subtitle'.tr(),
+                style: const TextStyle(height: 1.5),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
-                'How they work:',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                '• ${'isochronic.delta'.tr()}: ${'isochronic.delta_desc'.tr()}',
               ),
-              SizedBox(height: 8),
               Text(
-                'The rhythmic pulsing creates a strong auditory stimulus that can help guide your brain into different states through a process called entrainment.',
-                style: TextStyle(height: 1.5),
+                '• ${'isochronic.theta'.tr()}: ${'isochronic.theta_desc'.tr()}',
               ),
-              SizedBox(height: 16),
               Text(
-                'Benefits:',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                '• ${'isochronic.alpha'.tr()}: ${'isochronic.alpha_desc'.tr()}',
               ),
-              SizedBox(height: 8),
-              Text('• Works without headphones'),
-              Text('• More defined sound pulses'),
-              Text('• Can be more effective for some people'),
-              Text('• Good for meditation and focus'),
+              Text(
+                '• ${'isochronic.beta'.tr()}: ${'isochronic.beta_desc'.tr()}',
+              ),
+              Text(
+                '• ${'isochronic.gamma'.tr()}: ${'isochronic.gamma_desc'.tr()}',
+              ),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Got it'),
+            child: Text('common.ok'.tr()),
           ),
         ],
       ),

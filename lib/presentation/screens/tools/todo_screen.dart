@@ -31,7 +31,7 @@ class _TodoScreenState extends ConsumerState<TodoScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo List'),
+        title: Text('todo.title'.tr()),
         actions: [
           todosAsync.maybeWhen(
             data: (todos) {
@@ -40,7 +40,7 @@ class _TodoScreenState extends ConsumerState<TodoScreen> {
                 return TextButton.icon(
                   onPressed: () => _showClearCompletedDialog(completedCount),
                   icon: const Icon(LucideIcons.trash2, size: 16),
-                  label: Text('Clear ($completedCount)'),
+                  label: Text('todo.clear_completed'.tr()),
                   style: TextButton.styleFrom(foregroundColor: Colors.red),
                 );
               }
@@ -71,7 +71,7 @@ class _TodoScreenState extends ConsumerState<TodoScreen> {
                     focusNode: _inputFocusNode,
                     textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
-                      hintText: 'Add a new task...',
+                      hintText: 'todo.add_task'.tr(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
@@ -187,7 +187,7 @@ class _TodoScreenState extends ConsumerState<TodoScreen> {
               ),
           const SizedBox(height: 24),
           Text(
-            'No Tasks Yet',
+            'todo.empty_title'.tr(),
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Colors.grey.shade400,
                   fontWeight: FontWeight.bold,
@@ -195,7 +195,7 @@ class _TodoScreenState extends ConsumerState<TodoScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Add your first task above',
+            'todo.empty_subtitle'.tr(),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Colors.grey.shade500,
                 ),
@@ -230,12 +230,13 @@ class _TodoScreenState extends ConsumerState<TodoScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Edit Task'),
+        title: Text('todo.edit_task'.tr()),
         content: TextField(
           controller: controller,
           autofocus: true,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
+            hintText: 'todo.task_hint'.tr(),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
             ),
@@ -263,7 +264,7 @@ class _TodoScreenState extends ConsumerState<TodoScreen> {
                 Navigator.pop(context);
               }
             },
-            child: const Text('Save'),
+            child: Text('common.save'.tr()),
           ),
         ],
       ),
@@ -274,8 +275,8 @@ class _TodoScreenState extends ConsumerState<TodoScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear Completed Tasks?'),
-        content: Text('This will remove $count completed task${count > 1 ? 's' : ''}.'),
+        title: Text('todo.clear_completed'.tr()),
+        content: Text('todo.clear_confirm'.tr(args: ['$count'])),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -288,7 +289,7 @@ class _TodoScreenState extends ConsumerState<TodoScreen> {
               ref.read(todoActionsProvider.notifier).clearCompleted();
             },
             style: FilledButton.styleFrom(backgroundColor: Colors.red),
-            child: const Text('Clear'),
+            child: Text('common.delete'.tr()),
           ),
         ],
       ),

@@ -182,7 +182,7 @@ class SettingsScreen extends ConsumerWidget {
                         title: 'settings.feedback'.tr(),
                         subtitle: 'settings.feedback_desc'.tr(),
                         color: AppColors.info,
-                        onTap: () {},
+                        onTap: () => _openFeedback(),
                       ),
                       const Divider(height: 1, indent: 64),
                       _SettingsTile(
@@ -190,7 +190,7 @@ class SettingsScreen extends ConsumerWidget {
                         title: 'settings.privacy'.tr(),
                         subtitle: 'settings.privacy_desc'.tr(),
                         color: AppColors.success,
-                        onTap: () {},
+                        onTap: () => _openPrivacyPolicy(),
                       ),
                     ],
                   ),
@@ -468,7 +468,24 @@ class SettingsScreen extends ConsumerWidget {
 
   Future<void> _openGitHub() async {
     HapticFeedback.lightImpact();
-    final uri = Uri.parse('https://github.com/remvze/moodist');
+    final uri = Uri.parse('https://github.com/helloandworlder/moodist_flutter');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  Future<void> _openFeedback() async {
+    HapticFeedback.lightImpact();
+    // Open email for feedback
+    final uri = Uri.parse('mailto:helloandworlder@gmail.com?subject=Moodist%20Feedback');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  Future<void> _openPrivacyPolicy() async {
+    HapticFeedback.lightImpact();
+    final uri = Uri.parse('https://github.com/helloandworlder/moodist_flutter/blob/main/PRIVACY.md');
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
