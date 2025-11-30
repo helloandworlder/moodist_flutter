@@ -84,13 +84,18 @@ class AudioService {
     final asyncValue = _ref.read(selectedSoundsStreamProvider);
     asyncValue.whenData((selectedSounds) async {
       for (final sound in selectedSounds) {
-        await _loadAndPlay(sound.soundId, sound.volume);
+        // Check if sound exists before trying to play
+        if (SoundAssets.getSoundById(sound.soundId) != null) {
+          await _loadAndPlay(sound.soundId, sound.volume);
+        }
       }
     });
   }
 
   Future<void> _pauseAll() async {
-    for (final player in _players.values) {
+    // Create a copy to avoid concurrent modification
+    final playersCopy = Map<String, AudioPlayer>.from(_players);
+    for (final player in playersCopy.values) {
       if (player.playing) {
         await player.pause();
       }
@@ -101,8 +106,11 @@ class AudioService {
     final selectedIds = selectedSounds.map((s) => s.soundId).toSet();
     final isPlaying = _ref.read(playbackStateProvider);
 
+    // Create a copy to avoid concurrent modification
+    final playersCopy = Map<String, AudioPlayer>.from(_players);
+    
     // Stop unselected sounds
-    for (final entry in _players.entries) {
+    for (final entry in playersCopy.entries) {
       if (!selectedIds.contains(entry.key) && entry.value.playing) {
         await entry.value.pause();
       }
@@ -111,7 +119,10 @@ class AudioService {
     // Play selected sounds if playback is active
     if (isPlaying) {
       for (final sound in selectedSounds) {
-        await _loadAndPlay(sound.soundId, sound.volume);
+        // Check if sound exists before trying to play
+        if (SoundAssets.getSoundById(sound.soundId) != null) {
+          await _loadAndPlay(sound.soundId, sound.volume);
+        }
       }
     }
 
